@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -5,8 +6,11 @@ import 'package:musix_final/app/constants/enums.dart';
 import 'package:musix_final/app/data/models/failure_model.dart';
 import 'package:musix_final/app/data/models/track_list_model.dart';
 import 'package:musix_final/app/data/repository/track_list_repository.dart';
+import 'package:musix_final/app/logic/controllers/internet_controller.dart';
 
 class HomeController extends GetxController {
+  InternetController internetController =
+      Get.put(InternetController(connectivity: Connectivity()));
   final TrackListRepository trackListRepository;
   HomeController({@required this.trackListRepository});
 

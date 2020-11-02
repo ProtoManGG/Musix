@@ -32,35 +32,39 @@ class TrackView extends GetView<TrackController> {
           ),
         ].toRow(mainAxisAlignment: MainAxisAlignment.center),
         Obx(() {
-          if (controller.currentState.value == CurrentState.initial) {
-            return CommonWidgets.buildInitial();
-          } else if (controller.currentState.value == CurrentState.loading) {
-            return CommonWidgets.buildLoading();
-          } else {
-            return controller.track.fold(
-              (failure) => Text(failure.toString()),
-              (track) => [
-                styledTrackInfo(
-                  track: track,
-                  trackLyricsModel: controller.trackLyricsModel,
-                ),
-                FloatingActionButton(
-                  onPressed: () {
-                    controller.makeFavorite(
-                      itrack: track,
-                      isFavoriteSong: !controller.isFavorite.value,
-                    );
-                  },
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.favorite,
-                    color: controller.isFavorite.value
-                        ? Colors.redAccent
-                        : Colors.black,
+          if (controller.internetController.isConnected.value) {
+            if (controller.currentState.value == CurrentState.initial) {
+              return CommonWidgets.buildInitial();
+            } else if (controller.currentState.value == CurrentState.loading) {
+              return CommonWidgets.buildLoading();
+            } else {
+              return controller.track.fold(
+                (failure) => Text(failure.toString()),
+                (track) => [
+                  styledTrackInfo(
+                    track: track,
+                    trackLyricsModel: controller.trackLyricsModel,
                   ),
-                )
-              ].toColumn().scrollable(),
-            );
+                  FloatingActionButton(
+                    onPressed: () {
+                      controller.makeFavorite(
+                        itrack: track,
+                        isFavoriteSong: !controller.isFavorite.value,
+                      );
+                    },
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.favorite,
+                      color: controller.isFavorite.value
+                          ? Colors.redAccent
+                          : Colors.black,
+                    ),
+                  )
+                ].toColumn().scrollable(),
+              );
+            }
+          } else {
+            return CommonWidgets.buildError("Internet Disconnected 😑");
           }
         }),
       ].toColumn().scrollable()),

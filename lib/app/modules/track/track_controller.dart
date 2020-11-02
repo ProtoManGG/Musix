@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -7,8 +8,11 @@ import 'package:musix_final/app/data/models/failure_model.dart';
 import 'package:musix_final/app/data/models/track_lyrics_model.dart';
 import 'package:musix_final/app/data/models/track_model.dart';
 import 'package:musix_final/app/data/repository/track_list_repository.dart';
+import 'package:musix_final/app/logic/controllers/internet_controller.dart';
 
 class TrackController extends GetxController {
+  InternetController internetController =
+      Get.put(InternetController(connectivity: Connectivity()));
   final TrackListRepository trackListRepository;
   final currentState = CurrentState.initial.obs;
   Either<Failure, Track> track;

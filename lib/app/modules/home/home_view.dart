@@ -19,14 +19,23 @@ class HomeView extends GetView<HomeController> {
             .alignment(Alignment.center)
             .padding(top: 40),
         Obx(() {
-          if (controller.currentState.value == CurrentState.initial) {
-            return CommonWidgets.buildInitial();
-          } else if (controller.currentState.value == CurrentState.loading) {
-            return CommonWidgets.buildLoading();
-          } else {
-            return controller.trackListModel.fold(
+          if (controller.internetController.isConnected.value) {
+            if (controller.currentState.value == CurrentState.initial) {
+              return CommonWidgets.buildInitial();
+            } else if (controller.currentState.value == CurrentState.loading) {
+              return CommonWidgets.buildLoading();
+            } else {
+              return controller.trackListModel.fold(
                 (failure) => Text(failure.toString()),
-                (trackListModel) => styledTrackList(trackListModel));
+                (trackListModel) => styledTrackList(
+                  trackListModel: trackListModel,
+                  isInternetActive:
+                      controller.internetController.isConnected.value,
+                ),
+              );
+            }
+          } else {
+            return CommonWidgets.buildError("Internet Disconnected 😑");
           }
         }),
       ].toColumn().scrollable()),
@@ -41,9 +50,11 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-Widget styledTrackList(TrackListModel trackListModel) {
+Widget styledTrackList(
+    {TrackListModel trackListModel, @required bool isInternetActive}) {
   return trackListModel.trackList
       .map((trackindex) => styledTrack(
+            isInternetActive: isInternetActive,
             title: trackindex.track.trackName,
             description: trackindex.track.albumName,
             trackId: trackindex.track.trackId,
@@ -56,7 +67,11 @@ Widget styledTrackList(TrackListModel trackListModel) {
       .constrained(minHeight: Get.height - (2 * 30));
 }
 
-Widget styledTrack({String title, String description, int trackId}) {
+Widget styledTrack(
+    {String title,
+    String description,
+    int trackId,
+    @required bool isInternetActive}) {
   return <Widget>[
     const Icon(Icons.library_music_rounded, size: 20, color: Colors.white)
         .padding(all: 12)
@@ -100,7 +115,7 @@ Widget styledTrack({String title, String description, int trackId}) {
       )
       .constrained(height: 80)
       .padding(vertical: 12)
-      .gestures(onTap: () => changeScreen(trackId))
+      .gestures(onTap: () => isInternetActive ? changeScreen(trackId) : null)
       .scale(all: 1.0, animate: true)
       .animate(const Duration(milliseconds: 150), Curves.easeOut);
 }

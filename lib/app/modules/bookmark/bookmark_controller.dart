@@ -1,15 +1,15 @@
-import 'package:dartz/dartz.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:musix_final/app/constants/enums.dart';
-import 'package:musix_final/app/data/models/failure_model.dart';
-import 'package:musix_final/app/data/models/track_model.dart';
 import 'package:musix_final/app/data/repository/track_list_repository.dart';
+import 'package:musix_final/app/logic/controllers/internet_controller.dart';
 import 'package:musix_final/app/modules/home/home_view.dart';
-// import 'package:musix_final/app/modules/home/home_view.dart';
 
 class BookmarkController extends GetxController {
+  InternetController internetController =
+      Get.put(InternetController(connectivity: Connectivity()));
   final TrackListRepository trackListRepository;
 
   GetStorage box;
@@ -36,8 +36,8 @@ class BookmarkController extends GetxController {
           trackId: track["trackId"] as int,
           title: track["trackName"] as String,
           description: track["trackId"].toString(),
+          isInternetActive: internetController.isConnected.value,
         ),
-
       );
     }
     currentState.value = CurrentState.loaded;
