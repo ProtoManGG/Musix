@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musix_final/app/Shared/styling_widgets.dart';
 import 'package:musix_final/app/constants/enums.dart';
 import 'package:musix_final/app/data/models/track_list_model.dart';
 import 'package:musix_final/app/modules/home/home_controller.dart';
@@ -11,18 +12,24 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Obx(() {
+          child: [
+        const Text('Trending Songs')
+            .fontWeight(FontWeight.bold)
+            .fontSize(32.0)
+            .alignment(Alignment.center)
+            .padding(top: 40),
+        Obx(() {
           if (controller.currentState.value == CurrentState.initial) {
-            return const Text("Initial");
+            return CommonWidgets.buildInitial();
           } else if (controller.currentState.value == CurrentState.loading) {
-            return const Text("Loading");
+            return CommonWidgets.buildLoading();
           } else {
             return controller.trackListModel.fold(
                 (failure) => Text(failure.toString()),
                 (trackListModel) => styledTrackList(trackListModel));
           }
         }),
-      ),
+      ].toColumn().scrollable()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(Routes.BOOKMARK);
