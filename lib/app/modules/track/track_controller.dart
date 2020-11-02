@@ -19,6 +19,7 @@ class TrackController extends GetxController {
   TrackLyricsModel trackLyricsModel;
   RxBool isFavorite = false.obs;
   GetStorage box;
+  RxString errorString = "".obs;
 
   int trackId = Get.arguments as int;
 
@@ -48,14 +49,20 @@ class TrackController extends GetxController {
       },
     );
 
-    await trackListRepository.getTrackLyrics(trackId: trackId).then(
-      (response) {
-        if (response["message"]["header"]["status_code"] == 200) {
-          trackLyricsModel = TrackLyricsModel.fromJson(
-              response["message"]["body"]["lyrics"] as Map<String, dynamic>);
-        }
-      },
-    );
+    try {
+      await trackListRepository.getTrackLyrics(trackId: trackId).then(
+        (response) {
+          if (response["message"]["header"]["status_code"] == 200) {
+            trackLyricsModel = TrackLyricsModel.fromJson(
+                response["message"]["body"]["lyrics"] as Map<String, dynamic>);
+          }
+        },
+      );
+    } on Failure catch (f) {
+      errorString.value = f.message;
+      currentState.value = CurrentState.failure;
+      rethrow;
+    }
     final favoriteTracks = await box.read("favoriteTracks");
 
     for (final trackJson in favoriteTracks) {

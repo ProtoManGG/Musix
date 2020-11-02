@@ -39,12 +39,24 @@ class HomeView extends GetView<HomeController> {
           }
         }),
       ].toColumn().scrollable()),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(Routes.BOOKMARK);
-        },
-        backgroundColor: Colors.white,
-        child: const Icon(Icons.bookmark, color: Colors.redAccent).iconSize(30),
+      floatingActionButton: Obx(
+        () => controller.currentState.value == CurrentState.failure
+            ? FloatingActionButton(
+                onPressed: () async {
+                  controller.onInit();
+                },
+                backgroundColor: Colors.white,
+                child: const Icon(Icons.refresh, color: Colors.redAccent)
+                    .iconSize(40),
+              )
+            : FloatingActionButton(
+                onPressed: () {
+                  Get.toNamed(Routes.BOOKMARK);
+                },
+                backgroundColor: Colors.white,
+                child: const Icon(Icons.bookmark, color: Colors.redAccent)
+                    .iconSize(30),
+              ),
       ),
     );
   }
