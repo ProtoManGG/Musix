@@ -59,3 +59,7 @@ A bookmark button on the music details screen, which will save the TRACK_ID and 
 ## 🔱 **Apk Link:**
 
 - 🎃 **Check Releases**
+
+## 🔱 **GDrive Link for Resources:**
+
+- 🎇 [**Click Me**][https://drive.google.com/drive/folders/1ijnrutr36tglzx7riui25uythbtfmdih?usp=sharing]
