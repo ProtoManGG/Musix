@@ -22,6 +22,10 @@ Note: The Second and third API contain the word TRACK_ID, you must replace that 
 
 A bookmark button on the music details screen, which will save the TRACK_ID and Track Name on the device’s local storage. You will then use the saved information to make a third “Bookmarks” Page, where it will display the names of the saved tracks, and clicking on them will load the music details screen using the TRACK_ID that was saved along with it
 
+## 📺 _**Demo Gif**_:
+
+<img src="extras\Demo.gif" alt="Demo" width="100%" />
+
 ## 📕 **Current Progress:**
 
 - [x] Bloc Pattern Used
