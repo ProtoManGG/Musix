@@ -24,7 +24,7 @@ A bookmark button on the music details screen, which will save the TRACK_ID and 
 
 ## 📺 _**Demo Gif**_:
 
-<img src="extras\Demo.gif" alt="Demo" width="50%" />
+<img src="extras\Demo.gif" alt="Demo" width="40%" />
 
 ## 📕 **Current Progress:**
 
