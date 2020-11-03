@@ -62,4 +62,4 @@ A bookmark button on the music details screen, which will save the TRACK_ID and 
 
 ## 🔱 **GDrive Link for Resources:**
 
-- 🎇 [**Click Me**][https://drive.google.com/drive/folders/1ijnrutr36tglzx7riui25uythbtfmdih?usp=sharing]
+- 🎇 [**Click Me**](https://drive.google.com/drive/folders/1IJNrutR36tglZX7riUi25uYthbTFMDIh?usp=sharing)
