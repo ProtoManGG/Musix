@@ -1,4 +1,4 @@
-# **Musix: A Music App for Credixco Tech** 🪕
+# **Musix: A Music App** 🪕
 
 ## 🤔❓ **_The Problem Statement:_** 🙋‍♂️🙋‍♀️
 
